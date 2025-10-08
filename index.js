@@ -39,15 +39,6 @@ app.get('/goats/:id', (req, res) =>{
 app.delete('/goats/:id', (req, res) =>{
     console.log("Delete the code with id "+req.params.id);
     res.send("Deleted goat");
-    let selectedGoat = null;
-    goats.forEach((goat)=>{
-    if(goat.id == req.params.id)
-    {
-        selectedGoat = goat;
-    }
-    });
-
-   res.send(selectedGoat);
 })
 
 console.log("...Server is running");
