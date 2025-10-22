@@ -1,21 +1,59 @@
 const express = require('express');
 const router = express.Router();
 
+const {PrismaClient} = require("../generated/prisma");
+const prisma = new PrismaClient();
+
 //--------------
 // Get artist
 //--------------
-router.get('/', (req, res) =>{
+router.get('/', async (req, res) =>{
     //ToDo: link to database
-   res.send("[Get] all the artists");
+    let artists = await prisma.artists.findMany();
+   res.send(artists);
 })
 
 //--------------
 // Add artist
 //-------------
 
-router.post('/', (req, res) =>{
-    //ToDo: link to database
-   res.send("[POST] add new artist");
+router.post('/', async (req, res) =>{
+   
+    const checkArtist = await prisma.artists.findMany(
+        {
+            where:{
+                name: req.body.name
+            }
+        }
+    );
+
+    if(checkArtist.length >0)
+    {
+        res.json({
+            "status": "Artist name already exists"
+        })
+    } else{
+        const newArtist = await prisma.artists.create({
+            data:{
+                name:req.body.name
+            }
+        });
+
+        res.json(newArtist);
+    }
+
+
+
+//    const newArtist = await prisma.artists.create(
+//     {
+//         data:{
+//             name:req.body.name
+//         }
+//     }
+//    );
+//    console.log(newArtist);
+//     console.log(req.body);
+//    res.send("[Post] new artist");
 })
 
 //--------------
