@@ -4,6 +4,8 @@ const router = express.Router();
 const {PrismaClient} = require("../generated/prisma");
 const prisma = new PrismaClient();
 
+//week 5
+
 //--------------
 // Get artist
 //--------------
