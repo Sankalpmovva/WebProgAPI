@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
+const {PrismaClient} = require("../generated/prisma");
+const prisma = new PrismaClient();
+
 //--------------
 // Get ranking
 //--------------
-router.get('/', (req, res) =>{
+router.get('/', async(req, res) =>{
     //ToDo: link to database
-   res.send("[Get] rankings");
+   
 })
 
 
